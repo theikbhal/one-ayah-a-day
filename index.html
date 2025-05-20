@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Surah Mulk - 30 Day Challenge</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>📖 30-Day Challenge: Surah Al-Mulk</h1>
+    <h2 id="day">Day 1</h2>
+    <div class="ayah-box">
+      <p id="ayah">Loading ayah...</p>
+    </div>
+    
+    <div class="read-section">
+      <button onclick="incrementRead()">📘 Read Again</button>
+      <p>Read Count: <span id="readCount">0</span>/10</p>
+    </div>
+
+    <div class="write-section">
+      <p>✍️ Write Ayah:</p>
+      <textarea id="notes" rows="4" placeholder="Write the Ayah here..."></textarea>
+      <p>Write Count: <span id="writeCount">0</span>/10</p>
+      <button onclick="incrementWrite()">➕ Add Write</button>
+    </div>
+
+    <button class="complete" onclick="markComplete()">✅ Mark as Completed</button>
+    <p id="completeStatus"></p>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
