@@ -2,33 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Surah Mulk - 30 Day Challenge</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>One Ayah a Day - Surah Mulk</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 1rem;
+    }
+    header, footer {
+      text-align: center;
+      padding: 1rem;
+      background: #222;
+      color: white;
+    }
+    h1 {
+      margin: 0.5rem 0;
+    }
+    .ayah-card {
+      background: white;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .toggle {
+      margin-top: 1rem;
+    }
+    .btn {
+      padding: 0.5rem 1rem;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn:disabled {
+      background: gray;
+    }
+    .plan-section {
+      background: #fffbea;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+    }
+    .plan-section a {
+      color: #0066cc;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>📖 30-Day Challenge: Surah Al-Mulk</h1>
-    <h2 id="day">Day 1</h2>
-    <div class="ayah-box">
-      <p id="ayah">Loading ayah...</p>
-    </div>
-    
-    <div class="read-section">
-      <button onclick="incrementRead()">📘 Read Again</button>
-      <p>Read Count: <span id="readCount">0</span>/10</p>
-    </div>
+  <header>
+    <h1>سورة الملك - One Ayah a Day</h1>
+    <p>Track your progress memorizing Surah Al-Mulk</p>
+  </header>
 
-    <div class="write-section">
-      <p>✍️ Write Ayah:</p>
-      <textarea id="notes" rows="4" placeholder="Write the Ayah here..."></textarea>
-      <p>Write Count: <span id="writeCount">0</span>/10</p>
-      <button onclick="incrementWrite()">➕ Add Write</button>
-    </div>
+  <section class="plan-section">
+    <h2>Why We Started This</h2>
+    <p>We often start memorizing the Qur'an and stop. So we made it simple: 1 ayah per day.</p>
+    <p>Read 10x. Write 10x. Reflect and memorize with consistency, not pressure.</p>
+    <p>
+      <strong>Watch:</strong>
+      <a href="https://www.youtube.com/shorts/lOJuTsbp6Po" target="_blank">Plan Video</a>
+    </p>
+  </section>
 
-    <button class="complete" onclick="markComplete()">✅ Mark as Completed</button>
-    <p id="completeStatus"></p>
-  </div>
-  <script src="script.js"></script>
+  <section id="ayah-container"></section>
+
+  <footer>
+    <p>© 2025 One Ayah a Day</p>
+  </footer>
+
+  <script>
+    const ayat = [
+      { number: 1, text: "تبارك الذي ...", translation: "Blessed is He ..." },
+      { number: 2, text: "الذي خلق ...", translation: "He who created ..." },
+      // add remaining 30 ayat here manually
+    ];
+
+    const container = document.getElementById('ayah-container');
+    const progress = JSON.parse(localStorage.getItem('ayahProgress')) || { current: 1, startDate: new Date().toISOString().split('T')[0] };
+
+    ayat.forEach(ayah => {
+      const card = document.createElement('div');
+      card.className = 'ayah-card';
+
+      const show = progress.current === ayah.number;
+      card.innerHTML = `
+        <h3>Ayah ${ayah.number}</h3>
+        <p><strong>Arabic:</strong> ${ayah.text}</p>
+        <p><strong>English:</strong> ${ayah.translation}</p>
+        <p><a href="https://quranwbw.com/67/${ayah.number}" target="_blank">🔗 Word by Word</a></p>
+        <p><strong>Date:</strong> ${new Date().toISOString().split('T')[0]}</p>
+        <button class="btn" ${!show ? 'disabled' : ''} onclick="markAsDone(${ayah.number})">Mark as Done</button>
+      `;
+      container.appendChild(card);
+    });
+
+    function markAsDone(number) {
+      if (number === progress.current) {
+        progress.current++;
+        localStorage.setItem('ayahProgress', JSON.stringify(progress));
+        location.reload();
+      }
+    }
+  </script>
 </body>
 </html>
